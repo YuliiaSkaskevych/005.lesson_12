@@ -54,3 +54,24 @@ let users = [
         "address": "314 Dunne Place, Bawcomville, Guam, 9053"
     }
 ];
+
+const formattedUsers = users.map(function (user) {
+    user.balance = parseFloat(user.balance.replace("$", "").replace(",", ""));
+    return user;
+});
+
+const filteredUsers = formattedUsers.filter(function (user) {
+    if (user.balance > 2000) {
+        return true;
+    }
+});
+
+const usersPhoneNumbers = filteredUsers.map(function (user) {
+    return user.phone;
+});
+
+const balanceSum = filteredUsers.reduce(function (accumulator, currentValue) {
+    return Math.round((accumulator + currentValue.balance) * 100) / 100;
+}, 0);
+
+alert(`Users phones: ${usersPhoneNumbers}\r\nBalance sum: ${balanceSum}$`);
